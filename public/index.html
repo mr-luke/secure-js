@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CONSUMER BANK</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .brand {
+        background-color: #000080;
+        text-align: center;
+        color: #fff;
+      }
+
+      #username {
+        text-align: center;
+      }
+
+      #avatar {
+        width: 250px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      #form {
+        width: 250px;
+        margin: 16px auto 0 auto;
+      }
+
+      #form label,
+      #form input,
+      #form button {
+        display: block;
+        width: 100%;
+      }
+
+      #form input {
+        margin-top: 4px;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="brand">CONSUMER BANK</h1>
+    </header>
+    <section>
+      <h2 id="username">John Doe</h2>
+      <img id="avatar" />
+    </section>
+    <section>
+      <form id="form" action="#" method="POST">
+        <label for="name">Provide full name</label>
+        <input
+          type="text"
+          name="fullname"
+          id="name"
+          placeholder="ex. Jane Doe"
+          required
+        />
+        <label for="avatar-url">Provide new avatar URL</label>
+        <input
+          type="url"
+          name="avatar-url"
+          id="avatar-url"
+          placeholder="New avatar url"
+          required
+        />
+        <button type="submit">Update profile</button>
+      </form>
+    </section>
+  </body>
+</html>

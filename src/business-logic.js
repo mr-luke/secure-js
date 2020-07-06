@@ -1,0 +1,2 @@
+document.cookie =
+  "CONSUMER_BANK_ACCOUNT_SESSION_ID=b6OHmisQeElSLKFsnIiHZ0dM8bDXkx8tqYQP46bQC1zyypO7";
