@@ -1,12 +1,14 @@
-import { Http } from './http'
+import config from '../config'
+import { createHttpClient } from './http'
 
-/**
- * @TODO
- */
+export function createRepositoryInstance () {
+  return new Repository(config.repository)
+}
+
 export class Repository {
   constructor (config) {
-    this._config = config.repository
-    this._http = new Http(config.http)
+    this._config = config
+    this._http = createHttpClient()
   }
 
   /**
@@ -19,7 +21,7 @@ export class Repository {
     return this._http.request(
       this._config['method'],
       this._config['endpoint'],
-      data
+      data.toPayload()
     )
   }
 }

@@ -1,8 +1,10 @@
 import axios from 'axios'
+import config from '../config'
 
-/**
- * @TODO
- */
+export function createHttpClient () {
+  return new Http(config.http)
+}
+
 export class Http {
   constructor (config) {
     this._config = config
@@ -29,12 +31,19 @@ export class Http {
       )
     }
 
-    return this._instance.request({
+    const response = this._instance.request({
       method: method,
       url: target,
       headers: headers,
-      ...Http._composePayload(data.toPayload(), method)
+      ...Http._composePayload(data, method)
+    }).then(function (response) {
+      return response
     })
+    .catch(function (error) {
+      return error.response
+    })
+
+    return response
   }
 
   /**
