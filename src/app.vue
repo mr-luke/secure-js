@@ -1,11 +1,6 @@
 <template>
   <div id="app" class="container">
-    <div class="row mb-3">
-      <div class="col-12">
-        <h1 class="text-center text-uppercase">Interview application form</h1>
-      </div>
-    </div>
-
+    <h1 class="text-center text-uppercase mb-3">Interview application form</h1>
     <div class="card shadow">
       <div class="card-body">
         <Form />
@@ -14,13 +9,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import Form from './components/form.vue'
 
-export default {
+export default Vue.extend({
   name: 'App',
   components: { Form }
-}
+});
 </script>
 
 <style>

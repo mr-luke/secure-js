@@ -55,8 +55,6 @@ import config from '../config'
 import { Repository } from '../services/repository'
 import { User } from '../models/user'
 
-const SUCCESS_CODE = 200
-const SUCCESS_FALLBACK_MSG = 'Ok. Everything\'s fine'
 /**
  * @TODO
  */
@@ -79,19 +77,7 @@ export default {
     async submitForm () {
       const repository = new Repository(config)
 
-      const response = await repository.sendApplication(this.user)
-
-      if (response.status !== SUCCESS_CODE) {
-        // Deal with an issue
-        // this.handleErrors(response)
-        // { this.messageType = 'danger' }
-      } else {
-        if (typeof response.data !== 'object' || response.data === null) {
-          this.message = SUCCESS_FALLBACK_MSG
-        } else {
-          this.message = response.data.message || SUCCESS_FALLBACK_MSG
-        }
-      }
+      await repository.sendApplication(this.user)
     }
   }
 }
