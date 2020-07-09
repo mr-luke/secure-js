@@ -1,12 +1,23 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
 
-/**
- * @TODO
- */
+import { Headers, HttpConfig, Payload } from '../contracts/services'
+import { mainConfig } from '../config'
+
 export class Http {
-  constructor (config) {
+  private _config: HttpConfig
+  private _instance: AxiosInstance
+
+  constructor (config: HttpConfig) {
     this._config = config
-    this._instance = axios.create(config)
+    this._instance = axios.create(
+      this._config
+    )
+  }
+
+  public static createInstnce (): Http {
+    return new Http(
+      mainConfig.http
+    )
   }
 
   /**
@@ -19,7 +30,12 @@ export class Http {
    * @param {string} responseType
    * @returns {Promise<Response>}
    */
-  async request (method, target, data, headers) {
+  public async request (
+    method: string,
+    target: string,
+    data: Payload,
+    headers: Headers = {}
+  ): Promise<any> {
     const methods = [ 'delete', 'get', 'post', 'put' ]
 
     method = method.toLowerCase()
@@ -30,10 +46,12 @@ export class Http {
     }
 
     return this._instance.request({
-      method: method,
+      method: method as any,
       url: target,
       headers: headers,
-      ...Http._composePayload(data.toPayload(), method)
+      ...Http.composePayload(data, method)
+    }).catch((error: any) => {
+      return error.response
     })
   }
 
@@ -45,8 +63,7 @@ export class Http {
    * @returns {object}
    * @private
    */
-  static _composePayload (data, method) {
+  private static composePayload (data: Payload, method: string): Payload {
     return method === 'get' ? { params: data } : { data: data }
   }
-
 }

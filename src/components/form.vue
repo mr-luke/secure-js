@@ -50,17 +50,17 @@
   </form>
 </template>
 
-<script>
-import config from '../config'
+<script lang="ts">
+import Vue from 'vue'
+
+// import { FormProperties } from '../contracts/components'
+import { HttpCodes, HttpMessages } from '../contracts/services'
 import { Repository } from '../services/repository'
 import { User } from '../models/user'
 
-/**
- * @TODO
- */
-export default {
+export default Vue.extend({
   name: 'Form',
-  data () {
+  data: () => {
     return {
       isFormDisabled: false,
       message: null,
@@ -69,16 +69,34 @@ export default {
     }
   },
   computed: {
-    isFinished () {
-      return this.message !== null && this.message.length > 0
+    isFinished (): boolean {
+      return this !== null && this.message !== null &&
+        typeof this.message === 'string' && this.message.length > 0
     }
   },
   methods: {
-    async submitForm () {
-      const repository = new Repository(config)
+    hasMessage (response: any): boolean {
+      return response.data && 'message' in response.data &&
+        response.data.message !== undefined
+    },
+    async submitForm (): Promise<any> {
+      const repository: Repository = Repository.createInstnce()
+      const response: any = await repository.sendApplication(this.user)
 
-      await repository.sendApplication(this.user)
+      if (response.status === HttpCodes.Validation) {
+        this.messageType = 'warning'
+        this.message = this.hasMessage(response) ?
+          response.data.message : HttpMessages.Validation
+      } else if (response.status !== HttpCodes.Success) {
+        this.messageType = 'danger'
+        this.message = this.hasMessage(response) ?
+          response.data.message : HttpMessages.Error
+      } else {
+        this.messageType = 'success'
+        this.message = this.hasMessage(response) ?
+          response.data.message : HttpMessages.Success
+      }
     }
   }
-}
+})
 </script>
